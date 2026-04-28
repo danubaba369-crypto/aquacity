@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --navy: #042C53;
+    --blue: #185FA5;
+    --sky: #378ADD;
+    --light-blue: #B5D4F4;
+    --pale: #E6F1FB;
+    --gold: #BA7517;
+    --gold-light: #FAC775;
+    --white: #ffffff;
+    --off-white: #f8f9fc;
+    --text-dark: #1a2335;
+    --text-mid: #4a5568;
+    --text-muted: #718096;
+  }
+  body { font-family: 'Jost', sans-serif; background: var(--white); color: var(--text-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 70px;
+    background: rgba(4, 44, 83, 0.97);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(180,212,244,0.15);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, #378ADD, #042C53);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: white; font-weight: 700; font-family: 'Cormorant Garamond', serif;
+  }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: white; font-weight: 600; letter-spacing: 1px; }
+  .nav-logo-sub { font-size: 9px; color: var(--light-blue); letter-spacing: 3px; text-transform: uppercase; display: block; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; transition: color 0.2s; cursor: pointer; }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-cta {
+    background: var(--gold); color: white; border: none;
+    padding: 9px 22px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; font-family: 'Jost', sans-serif; font-weight: 500;
+    border-radius: 2px; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-light); color: var(--navy); }
+
+  /* HERO */
+  .hero {
+    height: 100vh; min-height: 600px;
+    background: linear-gradient(160deg, var(--navy) 0%, #0C447C 40%, #185FA5 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding-top: 70px;
+  }
+  .hero-waves {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+    opacity: 0.12;
+  }
+  .hero-circles {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;
+  }
+  .hc { position: absolute; border-radius: 50%; border: 1px solid rgba(181,212,244,0.15); }
+  .hc1 { width: 600px; height: 600px; top: -200px; right: -150px; }
+  .hc2 { width: 400px; height: 400px; bottom: -100px; left: -100px; }
+  .hc3 { width: 250px; height: 250px; top: 100px; left: 10%; }
+  .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 20px; max-width: 780px; }
+  .hero-badge {
+    display: inline-block; background: rgba(181,212,244,0.15); color: var(--light-blue);
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase; padding: 6px 16px;
+    border: 1px solid rgba(181,212,244,0.3); border-radius: 20px; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 7vw, 72px);
+    color: white; font-weight: 600; line-height: 1.1; margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--gold-light); font-style: italic; }
+  .hero-sub { font-size: 15px; color: rgba(255,255,255,0.65); font-weight: 300; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 36px; }
+  .hero-tagline { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.8; }
+  .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: white; padding: 14px 36px;
+    font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 500;
+    border: none; cursor: pointer; border-radius: 2px; font-family: 'Jost', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #EF9F27; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: white; padding: 14px 36px;
+    font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 400;
+    border: 1px solid rgba(255,255,255,0.4); cursor: pointer; border-radius: 2px;
+    font-family: 'Jost', sans-serif; transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.05); }
+  .hero-stats {
+    position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 48px; z-index: 2;
+  }
+  .stat-item { text-align: center; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; color: white; font-weight: 600; }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
+  .stat-div { width: 1px; background: rgba(255,255,255,0.2); }
+
+  /* SECTION COMMON */
+  section { padding: 90px 5%; }
+  .section-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); font-weight: 500; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 600; color: var(--navy); line-height: 1.2; margin-bottom: 16px; }
+  .section-body { font-size: 15px; color: var(--text-mid); line-height: 1.9; max-width: 560px; }
+
+  /* ABOUT */
+  .about { background: var(--off-white); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1100px; margin: 0 auto; }
+  .about-visual {
+    position: relative; height: 420px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    border-radius: 4px; overflow: hidden;
+  }
+  .about-visual-inner {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 8px;
+  }
+  .av-logo { font-family: 'Cormorant Garamond', serif; font-size: 48px; color: white; font-weight: 700; opacity: 0.9; }
+  .av-tagline { font-size: 12px; color: rgba(255,255,255,0.5); letter-spacing: 4px; text-transform: uppercase; }
+  .av-accent { position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: var(--gold); }
+  .about-features { display: flex; flex-direction: column; gap: 24px; margin-top: 32px; }
+  .feat-item { display: flex; gap: 16px; align-items: flex-start; }
+  .feat-icon { width: 36px; height: 36px; background: var(--pale); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px; color: var(--blue); font-weight: 700; font-family: 'Cormorant Garamond', serif; }
+  .feat-title { font-size: 14px; font-weight: 500; color: var(--navy); margin-bottom: 4px; }
+  .feat-desc { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+  /* PROPERTIES */
+  .properties { background: var(--white); }
+  .props-head { display: flex; justify-content: space-between; align-items: flex-end; max-width: 1100px; margin: 0 auto 48px; }
+  .props-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1100px; margin: 0 auto; }
+  .prop-card { border: 1px solid #e8edf5; border-radius: 4px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+  .prop-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(4,44,83,0.1); }
+  .prop-img {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 20px; color: white; font-weight: 600;
+    position: relative; overflow: hidden;
+  }
+  .prop-img.t1 { background: linear-gradient(135deg, #042C53, #185FA5); }
+  .prop-img.t2 { background: linear-gradient(135deg, #0C447C, #378ADD); }
+  .prop-img.t3 { background: linear-gradient(135deg, #185FA5, #85B7EB); }
+  .prop-badge { position: absolute; top: 12px; left: 12px; background: var(--gold); color: white; font-size: 10px; letter-spacing: 1px; padding: 4px 10px; text-transform: uppercase; font-family: 'Jost', sans-serif; border-radius: 2px; }
+  .prop-body { padding: 20px; }
+  .prop-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--navy); font-weight: 600; margin-bottom: 6px; }
+  .prop-loc { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; }
+  .prop-specs { display: flex; gap: 16px; margin-bottom: 16px; }
+  .spec { font-size: 12px; color: var(--text-mid); }
+  .spec strong { color: var(--navy); font-weight: 500; }
+  .prop-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--blue); font-weight: 600; }
+  .prop-price span { font-size: 12px; color: var(--text-muted); font-family: 'Jost', sans-serif; font-weight: 400; }
+
+  /* WHY CHOOSE US */
+  .why { background: var(--navy); padding: 90px 5%; }
+  .why-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .why .section-title { color: white; }
+  .why .section-tag { color: var(--gold-light); }
+  .why .section-body { color: rgba(255,255,255,0.65); }
+  .why-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .why-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(181,212,244,0.1); border-radius: 4px; padding: 24px; }
+  .why-card-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; color: var(--sky); opacity: 0.4; font-weight: 700; margin-bottom: 8px; }
+  .why-card-title { font-size: 14px; font-weight: 500; color: white; margin-bottom: 6px; }
+  .why-card-desc { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* CONTACT */
+  .contact { background: var(--off-white); }
+  .contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-form { background: white; border: 1px solid #e8edf5; border-radius: 4px; padding: 40px; }
+  .form-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: var(--navy); margin-bottom: 28px; font-weight: 600; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+  .form-group label { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
+  .form-group input, .form-group select, .form-group textarea {
+    border: 1px solid #e2e8f0; padding: 11px 14px; font-size: 14px; font-family: 'Jost', sans-serif;
+    color: var(--text-dark); border-radius: 2px; outline: none; background: #fafbfc;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--blue); background: white; }
+  .form-group textarea { height: 100px; resize: vertical; }
+  .form-submit { width: 100%; background: var(--navy); color: white; border: none; padding: 14px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; font-family: 'Jost', sans-serif; font-weight: 500; border-radius: 2px; margin-top: 8px; transition: background 0.2s; }
+  .form-submit:hover { background: var(--blue); }
+  .contact-info { padding-top: 16px; }
+  .info-block { margin-bottom: 40px; }
+  .info-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; font-weight: 500; }
+  .info-value { font-size: 15px; color: var(--navy); font-weight: 400; line-height: 1.8; }
+  .info-value a { color: var(--blue); text-decoration: none; }
+  .map-placeholder {
+    height: 200px; background: linear-gradient(135deg, var(--pale), var(--light-blue));
+    border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--light-blue); margin-top: 28px;
+    font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--blue);
+    flex-direction: column; gap: 8px;
+  }
+  .map-sub { font-size: 12px; font-family: 'Jost', sans-serif; color: var(--text-muted); letter-spacing: 1px; }
+
+  /* FOOTER */
+  footer { background: #020f1e; padding: 60px 5% 30px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; color: white; font-weight: 600; margin-bottom: 8px; }
+  .footer-brand-sub { font-size: 10px; letter-spacing: 3px; color: rgba(255,255,255,0.3); text-transform: uppercase; margin-bottom: 16px; }
+  .footer-brand-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.8; }
+  .footer-col-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 20px; font-weight: 500; }
+  .footer-link { display: block; font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; cursor: pointer; }
+  .footer-link:hover { color: var(--gold-light); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+  .footer-gold-line { width: 40px; height: 2px; background: var(--gold); margin: 12px 0 20px; }
+  .tagline-bar { background: var(--gold); padding: 12px 5%; text-align: center; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: white; font-weight: 500; }
+
+  @media (max-width: 700px) {
+    .about-grid, .why-inner, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .props-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 24px; }
+    .why-cards { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .props-head { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">A</div>
+    <div>
+      <div class="nav-logo-text">AQUA CITY</div>
+      <span class="nav-logo-sub">Islamabad · Natural Stay</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a>Home</a>
+    <a>Projects</a>
+    <a>About</a>
+    <a>Gallery</a>
+    <a>Contact</a>
+  </div>
+  <button class="nav-cta">Invest Now</button>
+</nav>
+
+<!-- TAGLINE BAR -->
+<div class="tagline-bar" style="margin-top:70px;">✦ Natural Stay · Premium Living · Islamabad's Finest Development ✦</div>
+
+<!-- HERO -->
+<div class="hero" style="margin-top: -70px; padding-top: 140px;">
+  <div class="hero-circles">
+    <div class="hc hc1"></div>
+    <div class="hc hc2"></div>
+    <div class="hc hc3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ Premier Real Estate · Islamabad</div>
+    <h1>Experience <span>Natural</span><br>Luxury Living</h1>
+    <p class="hero-sub">Aqua City Islamabad (Pvt.) Ltd.</p>
+    <p class="hero-tagline">Redefining modern living with waterfront-inspired residences in the heart of Islamabad — where nature meets elegance.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="sendPrompt('Mujhe Aqua City ke available plots aur pricing ke baare mein batao')">Explore Projects ↗</button>
+      <button class="btn-outline" onclick="sendPrompt('Aqua City Islamabad mein invest karne ke kya fayde hain?')">Why Invest?</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Happy Families</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-div"></div>
+    <div class="stat-item">
+      <div class="stat-num">3.7★</div>
+      <div class="stat-label">Google Rating</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="about-grid">
+    <div class="about-visual">
+      <div class="about-visual-inner">
+        <div class="av-logo">Aqua City</div>
+        <div class="av-tagline">Natural Stay</div>
+      </div>
+      <div class="av-accent"></div>
+    </div>
+    <div>
+      <p class="section-tag">✦ About Us</p>
+      <h2 class="section-title">Building Dreams in<br>the Capital</h2>
+      <p class="section-body">Aqua City Islamabad (Pvt.) Ltd. is a premier real estate development company dedicated to creating luxurious, nature-inspired living spaces in Islamabad. Our vision is to blend modern architecture with the natural beauty of Pakistan's capital.</p>
+      <div class="about-features">
+        <div class="feat-item">
+          <div class="feat-icon">◈</div>
+          <div>
+            <div class="feat-title">Prime Location</div>
+            <div class="feat-desc">F-10 Markaz, Capital Trade Center — the heart of Islamabad's commercial hub.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">◈</div>
+          <div>
+            <div class="feat-title">Trusted Developer</div>
+            <div class="feat-desc">Over a decade of delivering quality residential and commercial projects on time.</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">◈</div>
+          <div>
+            <div class="feat-title">Natural Living Concept</div>
+            <div class="feat-desc">Every project is designed with green spaces, water features, and eco-friendly infrastructure.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROPERTIES -->
+<section class="properties">
+  <div class="props-head">
+    <div>
+      <p class="section-tag">✦ Our Projects</p>
+      <h2 class="section-title">Featured Properties</h2>
+    </div>
+    <button class="btn-outline" style="color: var(--navy); border-color: var(--navy); padding: 10px 24px; font-size: 12px;" onclick="sendPrompt('Aqua City ke saare available properties dikhao')">View All →</button>
+  </div>
+  <div class="props-grid">
+    <div class="prop-card">
+      <div class="prop-img t1">
+        <div class="prop-badge">Available</div>
+        <span>Residential Plots</span>
+      </div>
+      <div class="prop-body">
+        <div class="prop-name">Aqua Gardens</div>
+        <div class="prop-loc">📍 F-10 Sector, Islamabad</div>
+        <div class="prop-specs">
+          <span class="spec"><strong>5</strong> Marla</span>
+          <span class="spec"><strong>10</strong> Marla</span>
+          <span class="spec"><strong>1</strong> Kanal</span>
+        </div>
+        <div class="prop-price">PKR 45 Lac+ <span>onwards</span></div>
+      </div>
+    </div>
+    <div class="prop-card">
+      <div class="prop-img t2">
+        <div class="prop-badge">New Launch</div>
+        <span>Commercial Units</span>
+      </div>
+      <div class="prop-body">
+        <div class="prop-name">Aqua Business Hub</div>
+        <div class="prop-loc">📍 F-10 Markaz, Islamabad</div>
+        <div class="prop-specs">
+          <span class="spec"><strong>Office</strong> Suites</span>
+          <span class="spec"><strong>Shop</span></span>
+        </div>
+        <div class="prop-price">PKR 1.2 Cr+ <span>onwards</span></div>
+      </div>
+    </div>
+    <div class="prop-card">
+      <div class="prop-img t3">
+        <div class="prop-badge">Booking Open</div>
+        <span>Luxury Apartments</span>
+      </div>
+      <div class="prop-body">
+        <div class="prop-name">Aqua Residences</div>
+        <div class="prop-loc">📍 Islamabad Capital Territory</div>
+        <div class="prop-specs">
+          <span class="spec"><strong>2</strong> Bed</span>
+          <span class="spec"><strong>3</strong> Bed</span>
+          <span class="spec"><strong>Penthouse</strong></span>
+        </div>
+        <div class="prop-price">PKR 85 Lac+ <span>onwards</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why">
+  <div class="why-inner">
+    <div>
+      <p class="section-tag">✦ Why Choose Us</p>
+      <h2 class="section-title">Islamabad's Most<br>Trusted Developer</h2>
+      <p class="section-body">From prime location to transparent dealing, Aqua City offers an unmatched real estate investment experience in Pakistan's capital city.</p>
+      <button class="btn-primary" style="margin-top: 32px;" onclick="sendPrompt('Aqua City mein investment ke baare mein consult karna chahta hoon')">Book Consultation ↗</button>
+    </div>
+    <div class="why-cards">
+      <div class="why-card">
+        <div class="why-card-num">01</div>
+        <div class="why-card-title">Verified Title Deeds</div>
+        <div class="why-card-desc">All properties come with fully verified legal documentation and clear titles.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">02</div>
+        <div class="why-card-title">Easy Installments</div>
+        <div class="why-card-desc">Flexible payment plans to make your dream property accessible and affordable.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">03</div>
+        <div class="why-card-title">High ROI</div>
+        <div class="why-card-desc">Strategic F-10 location ensures strong capital appreciation and rental yields.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-num">04</div>
+        <div class="why-card-title">Gated Community</div>
+        <div class="why-card-desc">24/7 security, modern amenities, and a premium lifestyle environment.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="section-tag">✦ Contact Us</p>
+      <h2 class="section-title">Get in Touch</h2>
+      <div class="info-block">
+        <div class="info-label">Office Address</div>
+        <div class="info-value">Office #06, 2nd Floor<br>Capital Trade Center<br>F-10 Markaz, F-10/3<br>Islamabad — 04412</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Phone</div>
+        <div class="info-value"><a href="tel:03311111184">0331 111 1184</a></div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Hours</div>
+        <div class="info-value">Mon – Tue: 9am – 6pm<br>Open Now (Closes 6am Wed)</div>
+      </div>
+      <div class="map-placeholder">
+        <span>📍 F-10 Markaz, Islamabad</span>
+        <span class="map-sub">Capital Trade Center</span>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-title">Request a Callback</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Ahmed">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Khan">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="0300 0000000">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="ahmed@example.com">
+      </div>
+      <div class="form-group">
+        <label>Interested In</label>
+        <select>
+          <option>Residential Plot</option>
+          <option>Commercial Unit</option>
+          <option>Apartment</option>
+          <option>Investment Advice</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell us about your requirements..."></textarea>
+      </div>
+      <button class="form-submit" onclick="sendPrompt('Maine inquiry form bhara hai Aqua City ke baare mein')">Submit Inquiry →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Aqua City</div>
+        <div class="footer-brand-sub">Islamabad (Pvt.) Ltd.</div>
+        <div class="footer-gold-line"></div>
+        <div class="footer-brand-desc">Premium real estate development in Islamabad. Building nature-inspired communities for a better tomorrow.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <a class="footer-link">Home</a>
+        <a class="footer-link">About Us</a>
+        <a class="footer-link">Projects</a>
+        <a class="footer-link">Gallery</a>
+        <a class="footer-link">Contact</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Projects</div>
+        <a class="footer-link">Aqua Gardens</a>
+        <a class="footer-link">Aqua Residences</a>
+        <a class="footer-link">Business Hub</a>
+        <a class="footer-link">Upcoming Projects</a>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <a class="footer-link">0331 111 1184</a>
+        <a class="footer-link">F-10 Markaz</a>
+        <a class="footer-link">Islamabad</a>
+        <a class="footer-link">Facebook Page</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Aqua City Islamabad (Pvt.) Ltd. All rights reserved.</div>
+      <div class="footer-copy">Natural Stay · Premium Living</div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
